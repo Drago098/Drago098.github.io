@@ -40,6 +40,8 @@ nav .links a:hover{color:var(--co2)}
 .hero h1{font-size:clamp(44px,6.4vw,80px)}
 .hero .role{font-size:clamp(18px,2vw,22px);margin:14px 0 18px;font-weight:500}
 .hero .lede{max-width:34em;opacity:.92}
+.open,.stack{margin:10px 0 0;font-size:15px;opacity:.95}
+.open b,.stack b{font-weight:600;margin-right:8px;opacity:.75}
 .figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.28);margin-top:26px}
 .figs div{background:var(--co);padding:14px 16px}
 .figs strong{display:block;font:600 clamp(26px,3vw,34px)/1.1 "Space Grotesk",sans-serif;white-space:nowrap}
@@ -77,6 +79,10 @@ nav .links a:hover{color:var(--co2)}
 .pp div.on svg{color:#fff}
 .zone .pp{background:var(--bg)}
 @media(max-width:420px){.pp div{font-size:12px}.pp svg{width:34px;height:28px}}
+.ops{border:1px solid var(--line);background:var(--zone);padding:12px 14px;font-size:15px}
+.ops>b{font-family:"Space Grotesk",sans-serif}
+.ops ul{margin:6px 0 0;padding-left:18px}
+.ops li{margin-bottom:4px}
 .kw{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px}
 .kw span{font-size:13px;padding:3px 8px;border:1px solid var(--line);border-radius:3px;color:var(--mute)}
 .tl{display:grid;gap:0;border-top:1px solid var(--line)}
@@ -114,7 +120,9 @@ footer{padding:20px max(5vw,16px);color:var(--mute);font-size:14px;border-top:1p
   <div>
     <h1>Ayush Pandey</h1>
     <p class="role">AI Scientist, Scanvue Medical Imaging · M.Tech AI, IIEST Shibpur</p>
-    <p class="lede">I build machine learning systems end to end, across vision, language and tabular data: deep metric learning for animal biometrics now in production, medical imaging on X-rays, EEG and ECG, research on how small language models use retrieved examples (ICISS 2027), and 3.5 years of predictive modelling and data pipelines at Tata Consultancy Services.</p>
+    <p class="lede">I build ML systems end to end: biometric identification now in production, medical imaging on X-rays, EEG and ECG, and LLM research accepted at ICISS 2027. Previously 3.5 years of ML and data engineering at TCS.</p>
+    <p class="open"><b>Open to</b> ML Engineer · Computer Vision Engineer · AI Scientist roles, India or remote</p>
+    <p class="stack"><b>Stack</b> PyTorch · metric learning · YOLO · U-Net · ViT · RAG · MLflow · Docker · SQL</p>
     <div class="figs">
       <div><strong>98.8%</strong><span>first-guess accuracy identifying dogs from a nose photo, tested on 500 dogs the model never saw</span></div>
       <div><strong>Live</strong><span>biometric ID system I took from prototype to production, used by real pet owners</span></div>
@@ -140,13 +148,20 @@ footer{padding:20px max(5vw,16px);color:var(--mute);font-size:14px;border-top:1p
         <li>Two-stage pipeline: a detector crops the nose, a deep metric-learning model turns it into a compact embedding, matched against each dog's gallery. A face model breaks close calls.</li>
         <li>Trained with contrastive and margin-based losses; stays above 96% Rank-1 under every image corruption tested.</li>
         <li>Benchmarked 6+ variants including a distilled lightweight model; chose the final one on robustness, not clean accuracy.</li>
-        <li>Prototype to production: REST API, async inference workers, mobile app. Now building weekly retraining with a model registry.</li>
+        <li>Prototype to production behind a REST API and mobile app, with inference on async workers so uploads never block the app.</li>
       </ul>
       <dl class="res">
         <div><dt>98.8%</dt><dd>of the time, the correct dog is the system's first answer (Rank-1, 500 unseen dogs)</dd></div>
         <div><dt>99.6%</dt><dd>of the time, the correct dog is in its top 5 answers</dd></div>
         <div><dt>96%+</dt><dd>first-guess accuracy holds even with blur, noise and poor lighting</dd></div>
       </dl>
+      <div class="ops"><b>Production problems solved</b><ul>
+        <li><b>Bad input:</b> quality gates reject blurry and too-small nose crops before they reach the model, cutting false matches.</li>
+        <li><b>Compute:</b> video is sampled every third frame, so a clip costs a fraction of full-frame processing.</li>
+        <li><b>Train/serve skew:</b> found and fixed preprocessing differences between the prototype and the mobile pipeline.</li>
+        <li><b>Stale results:</b> fixed a gallery cache that served outdated embeddings after new dogs enrolled.</li>
+        <li><b>Data for retraining:</b> designed per-dog crop storage so production data can feed weekly retraining and automated model promotion.</li>
+      </ul></div>
       <div class="kw"><span>Metric learning</span><span>ArcFace</span><span>SupCon</span><span>CBAM</span><span>YOLOv8</span><span>Distillation</span><span>MLflow</span></div>
     </article>
     <article class="card">
